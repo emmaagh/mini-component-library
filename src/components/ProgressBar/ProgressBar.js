@@ -3,6 +3,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 import { COLORS } from '../../constants';
+import VisuallyHidden from '../VisuallyHidden';
 
 const getSizeStyles = (size) => {
   switch (size) {
@@ -28,15 +29,17 @@ const getSizeStyles = (size) => {
 };
 
 const ProgressBar = ({ value, size }) => {
-  const accessibilityStyles = {
-    'aria-valuemin': 0,
-    'aria-valuemax': 100,
-    'aria-valuenow': value,
-  }
   return (
     <OuterWrapper {...getSizeStyles(size)}>
         <InnerWrapper>
-          <Progress value={value} {...accessibilityStyles} />
+          <Progress value={value} />
+          <div
+            role='progressbar'
+            aria-valuemin='0'
+            aria-valuemax='100'
+            aria-valuenow={value}>
+            <VisuallyHidden>{value}%</VisuallyHidden>
+          </div>
         </InnerWrapper>
     </OuterWrapper>
   );
@@ -54,6 +57,7 @@ const OuterWrapper = styled.div`
 const InnerWrapper = styled.div`
   height: 100%;
   border-radius: 4px;
+  /* Stop blue progress bar from popping out of corners of wrapper */
   overflow: hidden;
 `;
 
