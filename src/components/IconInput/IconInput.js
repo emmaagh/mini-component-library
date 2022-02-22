@@ -12,14 +12,14 @@ const sizes = {
     iconSize: '10px',
     fontSize: '14px',
     lineHeight: '16px',
-    paddingInputLeft: '21px',
+    height: '24px',
   },
   large: {
     underlineThickness: '2px',
     iconSize: '16px',
     fontSize: '18px',
     lineHeight: '21px',
-    paddingInputLeft: '33px',
+    height: '36px',
   },
 }
 
@@ -35,12 +35,11 @@ const IconInput = ({
     iconSize,
     fontSize,
     lineHeight,
-    paddingInputLeft,
+    height,
   } = sizes[size];
   return (
     <Wrapper style={{
       '--underline-thickness': underlineThickness,
-      '--width': width + 'px',
     }}>
       <IconWrapper style={{'--size': iconSize}}>
         <Icon id={icon} size={iconSize} />
@@ -48,10 +47,10 @@ const IconInput = ({
       <Input placeholder={placeholder} style={{
         '--font-size': fontSize,
         '--line-height': lineHeight,
-        '--padding-left': paddingInputLeft,
         '--width': width + 'px',
+        '--height': height,
       }} />
-      <VisuallyHidden>{placeholder}</VisuallyHidden>
+      <VisuallyHidden>{label}</VisuallyHidden>
     </Wrapper>
   );
 };
@@ -59,8 +58,8 @@ const IconInput = ({
 const Wrapper = styled.div`
   position: relative;
   border-bottom: var(--underline-thickness) solid ${COLORS.black};
-  width: var(--width);
   color: ${COLORS.gray700};
+  width: fit-content;
 
   &:hover {
     color: ${COLORS.black};
@@ -78,9 +77,11 @@ const IconWrapper = styled.div`
 `;
 
 const Input = styled.input`
-  padding: 0;
-  padding-left: var(--padding-left);
   width: var(--width);
+  height: var(--height);
+
+  padding: 0;
+  padding-left: var(--height);
 
   border: none;
 
